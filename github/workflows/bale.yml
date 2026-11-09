@@ -1,0 +1,25 @@
+name: Bale Auto Post
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install requests
+        run: pip install requests
+
+      - name: Send post to Bale
+        env:
+          BALE_TOKEN: ${{ secrets.BALE_TOKEN }}
+        run: python send_post.py
